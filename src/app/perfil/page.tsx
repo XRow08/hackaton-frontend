@@ -25,7 +25,7 @@ export default function Perfil() {
       <Header />
       <div className="bg-banner bg-no-repeat bg-cover w-full h-[25vh] p-20" />
       <div className="h-44 w-44 rounded-full border-4 absolute left-32 top-48 bg-logoxr bg-no-repeat bg-cover" />
-      <section className="bg-brand-primary h-[100vh] p-16 px-32 w-full flex flex-col gap-12">
+      <section className="bg-brand-primary h-[100vh] p-16 pt-24 px-32 w-full flex flex-col gap-12">
         <div className="flex items-start justify-between">
           <div className="flex flex-col justify-center gap-4 w-1/3">
             <Title color="white" className="text-2xl font-medium">

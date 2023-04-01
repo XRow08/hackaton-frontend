@@ -4,13 +4,13 @@ import Image from "next/image";
 import { Title } from "../Title";
 import { Clock } from "../Icon/Clock";
 import { Map } from "../Icon/Map";
-import { InputDoFilhoDaPuta } from "../Input/InputDoFilhoDaPuta";
+import { InputNumber } from "../Input/InputNumber";
 import { Button } from "../Button";
 import { Close } from "../Icon/Close";
 
 export function Modal({ onClick }: any) {
   return (
-    <div className="fixed h-screen w-screen bg-[rgba(0,0,0,0.6)] flex justify-center items-center z-50">
+    <div className="fixed h-screen w-screen bg-[rgba(0,0,0,0.3)] flex justify-center items-center z-50">
       <Close
         className={"absolute top-28 right-[36%] cursor-pointer"}
         onClick={onClick}
@@ -65,7 +65,7 @@ export function Modal({ onClick }: any) {
             <Title color="white" className="font-medium">
               Qt de ingressos
             </Title>
-            <InputDoFilhoDaPuta />
+            <InputNumber />
           </div>
           <div className="flex w-full justify-center items-center text-base font-normal text-[rgba(255,255,255,.7)]">
             Vendas até 17/04/2023
