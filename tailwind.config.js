@@ -20,8 +20,10 @@ module.exports = {
         "feedback-info": "#5df2fe",
       },
       backgroundImage: {
-        "banner": "url(/banner_ow.png)",
-        "logoxr": "url(/logoXR.png)",
+        banner: "url(/banner_ow.png)",
+        logoxr: "url(/logoXR.png)",
+        latam: "url(/latam.png)",
+        rio: "url(/rio.png)",
       },
     },
   },

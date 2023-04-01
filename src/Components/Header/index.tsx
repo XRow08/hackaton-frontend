@@ -13,7 +13,7 @@ export function Header() {
         <Title color="white">NAMEPROJECT</Title>
       </Link>
       <div className="flex items-center justify-end gap-8 w-[100%]">
-        <Search />
+        <Search placeholder={'Pesquise sobre eventos, ingressos e empresas'} />
         <Dropdown />
         <ConnectButton />
         <CgShoppingCart size={24} color="white" className="cursor-pointer" />

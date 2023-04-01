@@ -15,7 +15,7 @@ export default function Home() {
         <Container className="border bg-brand-text col-span-1"> </Container>
         <Container className="border bg-brand-text col-span-1"> </Container>
       </div>
-      <section className="px-24 w-full flex flex-col gap-12">
+      <section className="px-24 w-full flex flex-col gap-12 pb-20">
         <div>
           <Title color="white" className="text-xl font-normal mb-2">
             Eventos

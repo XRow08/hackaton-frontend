@@ -4,7 +4,7 @@ import { Title } from "../Title";
 
 export function Footer() {
   return (
-    <section className="bg-[#181623] h-[30vh] w-full mt-8 gap-4 flex flex-col justify-end items-center pb-8">
+    <section className="bg-[#181623] h-[20vh] w-full gap-4 flex flex-col justify-end items-center pb-8">
       <div className="flex items-center gap-2">
         <Link href={"/create-nft"} className="text-white text-lg">
           Create
