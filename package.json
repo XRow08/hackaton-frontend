@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@celo/contractkit": "^4.0.0",
     "@ethersproject/providers": "^5.7.2",
     "@metamask/providers": "^10.2.1",
     "bufferutil": "^4.0.7",
@@ -24,6 +25,8 @@
     "react-icons": "^4.8.0",
     "typescript": "5.0.3",
     "utf-8-validate": "^5.0.10",
+    "web3": "^1.9.0",
+    "web3-eth": "^1.9.0",
     "web3modal": "^1.9.12"
   },
   "devDependencies": {

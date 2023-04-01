@@ -25,7 +25,7 @@ export function TicketsActive({ setModal }: any) {
     const itemClassNames = classNames(
       "absolute cursor-pointer transition-all duration-300 ease-in-out text-white font-medium text-[0px] flex justify-center items-center h-2 w-[6.45rem] rounded-lg bg-transparent -ml-2 z-[0]",
       {
-        "text-[14px] bg-[#217025] h-8 -mt-6": hover,
+        "bg-[rgba(33,112,37,1)] text-[14px] h-8 -mt-6": hover,
       }
     );
     return (
