@@ -1,9 +1,7 @@
-"use client";
 import classNames from "classnames";
 import { useEffect, useState } from "react";
 import { BiShareAlt } from "react-icons/bi";
 import { CgOptions } from "react-icons/cg";
-import { Link } from "react-router-dom";
 
 //FUNÇÕES
 import {
@@ -33,12 +31,13 @@ import {
 import { EventCard } from "../../Components/Card/EventCard";
 import { Loading } from "../../Components/Loading";
 
-export default function Perfil() {
+export function Perfil() {
   const [active, setActive] = useState("atividades");
   const [modal, setModal] = useState(false);
   const [usd, setUsd] = useState(0);
   const [events, setEvents] = useState<any | null>(null);
   const adress = StorageHelper.getItem("adress");
+  const user = StorageHelper.getItem("user");
   const firstFour = adress.substring(0, 4);
   const lastFour = adress.slice(-4);
   const result = `${firstFour}...${lastFour}`;
@@ -100,30 +99,36 @@ export default function Perfil() {
         <div className="flex items-start justify-between">
           <div className="flex flex-col justify-center gap-4 w-1/3">
             <Title color="white" className="text-2xl font-medium">
-              XR System Company
+              {user.name}
             </Title>
             <div className="bg-[#26252F] text-[rgba(255,255,255,.7)] rounded-lg flex items-center justify-between gap-2 w-full h-12 p-2 border border-[rgba(255,255,255,.3)]">
               Carteira do criador
               <span className="flex items-center gap-2">
-                {result}
+                {!adress ? "Sem carteira" : `${result}`}
                 <Colar />
               </span>
             </div>
             <div className="bg-[#26252F] text-[rgba(255,255,255,.7)] rounded-lg flex items-center justify-between gap-2 w-full h-12 p-3 border border-[rgba(255,255,255,.3)]">
               USD
-              <span>${usd}</span>
+              <span>{!adress ? "Sem carteira" : `$${usd}`}</span>
             </div>
           </div>
 
           <div className="flex flex-col justify-center items-end gap-8">
             <div className="flex items-center gap-2">
-              <CgOptions size={20} color="white" />
-              <Title className="text-[rgba(255,255,255,.7)]">Opções</Title>
+              <div className="cursor-pointer mr-8 flex items-center gap-2">
+                <CgOptions size={20} color="white" />
+                <Title className="text-[rgba(255,255,255,.7)]">Opções</Title>
+              </div>
 
-              <BiShareAlt size={20} color="white" />
-              <Title className="text-[rgba(255,255,255,.7)]">Opções</Title>
+              <div className="cursor-pointer flex items-center gap-2">
+                <BiShareAlt size={20} color="white" />
+                <Title className="text-[rgba(255,255,255,.7)]">
+                  Compartilhar
+                </Title>
+              </div>
             </div>
-            <div className="flex items-center gap-2 h-full">
+            <div className="flex items-center gap-2 h-full cursor-pointer">
               <InstagramIcon />
               <TiktokIcon />
               <TwitterIcon />
@@ -159,7 +164,7 @@ export default function Perfil() {
             </div>
           </div>
           <Search
-            className="border-[rgba(255,255,255,.3)]"
+            className="border-[rgba(255,255,255,.3)] mb-2"
             placeholder={"Atividades, tickets e itens"}
           />
         </div>

@@ -7,7 +7,7 @@ import { Container } from "../../Components/Container";
 import { Footer } from "../../Components/Footer";
 import { Header } from "../../Components/Header";
 
-export default function Home() {
+export function Home() {
   return (
     <section className="h-full bg-brand-primary">
       <Header />

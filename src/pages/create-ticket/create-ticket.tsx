@@ -1,18 +1,13 @@
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { Link, useLocation } from "react-router-dom";
-import {
-  Header,
-  Title,
-  InputImage,
-  Input,
-  Button,
-  Footer,
-  Textarea,
-  ToggleCheck,
-} from "../../Components";
+import { Header, Title, Footer, FormCreateTicket } from "../../Components";
 import { useEffect, useState } from "react";
-import { createTicket, verUriDoContrato } from "../../services/Contratos";
-import { PinataAPIFile, PinataAPIJSON } from "../../services";
+import {
+  PinataAPIFile,
+  PinataAPIJSON,
+  createTicket,
+  verUriDoContrato,
+} from "../../services";
 import queryString from "query-string";
 
 export function CreateTicket() {
@@ -64,7 +59,7 @@ export function CreateTicket() {
     <>
       <Header />
       <section className="h-full bg-brand-primary flex flex-col justify-start items-center pb-20 pt-10">
-        <div className="w-[40%] flex flex-col justify-center items-start">
+        <div className="w-full flex flex-col justify-center items-center">
           <div className="flex items-center justify-center gap-2 font-medium text-[24px] text-white mb-4">
             <Link to={"/perfil"} className="mt-1">
               <svg
@@ -104,121 +99,12 @@ export function CreateTicket() {
               <span>{name}</span>
             </Title>
           </div>
-
-          <form onSubmit={handleSubmit(onSubmitPinata)} className="w-full mt-2">
-            <Title color="white" className="font-medium text-[20px] my-2 mt-8">
-              Imagem do Ticket
-            </Title>
-            <Controller
-              name="image_ticket"
-              control={control}
-              render={({ field }) => (
-                <InputImage
-                  {...field}
-                  label="Enviar foto do Ticket"
-                  onChange={(e: any) => setFile(e.target.files[0])}
-                />
-              )}
-            />
-
-            <Title
-              color="white"
-              className="font-medium text-[20px] my-2 mt-8 flex flex-col"
-            >
-              Nome do ticket
-            </Title>
-            <Controller
-              name="name_ticket"
-              control={control}
-              render={({ field }) => (
-                <Input
-                  {...field}
-                  type="text"
-                  placeholder="Meu Ticket 1"
-                ></Input>
-              )}
-            />
-
-            <Title
-              color="white"
-              className="font-medium text-[20px] my-2 mt-4 flex flex-col"
-            >
-              Descrição
-              <span className="text-[rgba(255,255,255,.5)] font-normal text-[16px]">
-                Coloque uma descrição relacionada ao seu evento
-              </span>
-            </Title>
-            <Controller
-              name="descricao_ticket"
-              control={control}
-              render={({ field }) => (
-                <Textarea
-                  {...field}
-                  placeholder="Fale sobre seu evento"
-                  cols={30}
-                  rows={10}
-                />
-              )}
-            />
-
-            <Title
-              color="white"
-              className="font-medium text-[20px] my-2 mt-8 flex flex-col"
-            >
-              Total Supply
-            </Title>
-            <div className="w-full h-full gap-4">
-              <Controller
-                name="total_ticket"
-                control={control}
-                render={({ field }) => (
-                  <Input {...field} type="number" placeholder="5000"></Input>
-                )}
-              />
-            </div>
-
-            <Title
-              color="white"
-              className="font-medium text-[20px] my-2 mt-8 flex flex-col"
-            >
-              Preço
-            </Title>
-            <Controller
-              name="preco_ticket"
-              control={control}
-              render={({ field }) => (
-                <Input {...field} type="number" placeholder="R$"></Input>
-              )}
-            />
-
-            <Title
-              color="white"
-              className="font-medium text-[20px] my-2 mt-8 flex flex-col"
-            >
-              Token é beneficiario?
-            </Title>
-            <Controller
-              name="beneficent"
-              control={control}
-              render={({ field }) => <ToggleCheck {...field} />}
-            />
-
-            <Button
-              type="submit"
-              className="bg-[#1E1D2C] w-full my-4 mt-8 rounded-lg text-white font-lato font-medium hover:bg-[#4C24D0]"
-            >
-              Continuar
-            </Button>
-            <Button className="bg-transparent w-full border border-[rgba(255,255,255,.3)] rounded-lg">
-              <Link
-                className="h-12 w-full text-white font-lato font-medium"
-                to={"/perfil"}
-              >
-                Voltar
-              </Link>
-            </Button>
-          </form>
         </div>
+        <FormCreateTicket
+          onSubmit={handleSubmit(onSubmitPinata)}
+          control={control}
+          setFile={(e: any) => setFile(e.target.files[0])}
+        />
       </section>
       <Footer />
     </>

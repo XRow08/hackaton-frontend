@@ -1,4 +1,5 @@
 import { ethers } from "ethers";
+import { StorageHelper } from "../helpers";
 
 let userAddress;
 
@@ -8,6 +9,47 @@ let marketplaceContract = "0x89599F0e18f7003AF81C8b4F5b9B86929EBc5164";
 let factoryContract = "0x3C97C9f44987930d940d29325A6333D1a2bFD9fA";
 
 //funçoes
+
+export async function addNetwork() {
+  interface CustomWindow extends Window {
+    ethereum?: any;
+  }
+  const customWindow = window as CustomWindow;
+
+  if (customWindow.ethereum) {
+    try {
+      const accounts = await customWindow.ethereum.request({
+        method: "eth_requestAccounts",
+      });
+      StorageHelper.setItem("adress", accounts[0]);
+    } catch (err) {
+      console.log(err);
+    }
+    try {
+      await customWindow.ethereum.request({
+        method: "wallet_addEthereumChain",
+        params: [
+          {
+            chainId: "0xAEF3",
+            chainName: "Celo native asset",
+            nativeCurrency: {
+              name: "Celo native asset",
+              symbol: "CELO",
+              decimals: 18,
+            },
+            blockExplorerUrls: ["https://testnet.bscscan.com"],
+            rpcUrls: ["https://alfajores-forno.celo-testnet.org"],
+          },
+        ],
+      });
+    } catch (addError) {
+      console.log(addError);
+    }
+    return StorageHelper.getItem("adress");
+  } else {
+    alert("MetaMask is not installed.");
+  }
+}
 
 //usd
 const increaseAllowanceFunction =

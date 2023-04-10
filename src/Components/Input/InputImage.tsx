@@ -48,7 +48,6 @@ export function InputImage({ label, multiple, onChange, ...field }: any) {
         }}
         {...field}
         multiple={multiple}
-        id="file"
         type="file"
         className="sr-only peer"
       />

@@ -1,16 +1,26 @@
 import { createBrowserRouter } from "react-router-dom";
-import { CreateEvent, NotFoundPage } from "../pages";
-import Home from "../pages/Home/Home";
-import EventSoon from "../pages/event-soon";
-import Event from "../pages/event";
-import { MyEvent } from "../pages/my-event";
-import { CreateTicket } from "../pages/create-ticket";
-import Perfil from "../pages/perfil/Perfil";
+import {
+  CreateEvent,
+  CreateTicket,
+  EventSoon,
+  Home,
+  MyEvent,
+  NotFoundPage,
+  Register,
+  Event,
+  Perfil,
+  EventActive,
+} from "../pages";
 
 export const UserRoutes = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
+    errorElement: <NotFoundPage />,
+  },
+  {
+    path: "/register",
+    element: <Register />,
     errorElement: <NotFoundPage />,
   },
   {
@@ -21,6 +31,11 @@ export const UserRoutes = createBrowserRouter([
   {
     path: "/event",
     element: <Event />,
+    errorElement: <NotFoundPage />,
+  },
+  {
+    path: "/event-active",
+    element: <EventActive />,
     errorElement: <NotFoundPage />,
   },
   {

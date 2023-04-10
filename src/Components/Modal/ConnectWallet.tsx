@@ -1,35 +1,45 @@
+import { Link } from "react-router-dom";
 import { Button } from "../Button";
 import { Close } from "../Icon/Close";
 import { Title } from "../Title";
 import { useState } from "react";
 
-export function Access({ onClick, addNetwork }: any) {
+export function ConnectWallet({ onClick, addNetwork }: any) {
   const [step, setStep] = useState(1);
 
   return (
     <>
-      <div className="fixed w-screen h-screen flex justify-center items-center bg-[rgba(0,0,0,.3)] z-50">
+      <div className="fixed w-screen h-screen flex justify-center items-center bg-[rgba(0,0,0,.5)] z-50">
         {step === 1 && (
-          <div className="h-[20vh] w-[30vw] px-14 bg-brand-primary border border-[rgba(255,255,255,.3)] rounded-2xl flex flex-col justify-center items-center gap-4">
-            <Close
-              className={"absolute top-[42%] right-[36%] cursor-pointer"}
-              onClick={onClick}
-            />
-            <Title color="white" className="text-lg font-medium">
+          <div className="p-12 w-[30%] bg-brand-primary border border-[rgba(255,255,255,.3)] rounded-2xl flex flex-col justify-center items-center gap-4">
+            <Title
+              color="white"
+              className="text-lg font-medium flex items-center justify-between w-full"
+            >
               Como deseja acessar nossa plataforma?
+              <Close
+                className={"relative self-end cursor-pointer"}
+                onClick={onClick}
+              />
             </Title>
-            <div
+            <Button
+              className="h-16 text-lg font-medium text-white w-full rounded-lg border border-[rgba(255,255,255,.3)] mt-8"
               onClick={() => setStep(2)}
-              className="bg-[#353441] text-lg transition-all duration-300 ease-in-out font-medium text-white font-lato w-full flex justify-start items-center h-12 px-4 hover:bg-[#4C24D0] border border-[rgba(255,255,255,.3)] rounded-lg"
             >
               Entrar como usuário
-            </div>
+            </Button>
+            <Button
+              className="h-16 text-lg font-medium text-white w-full rounded-lg border border-[rgba(255,255,255,.3)]"
+              onClick={() => setStep(2)}
+            >
+              Entrar como empresa
+            </Button>
           </div>
         )}
 
         {step === 2 && (
-          <div className="h-[20vh] w-[30vw] bg-brand-primary flex flex-col justify-center items-start rounded-2xl py-40 px-20">
-            <div className="flex items-center justify-center gap-2 font-medium text-[24px] text-white mb-4">
+          <div className="w-[30vw] bg-brand-primary flex flex-col justify-center items-start rounded-2xl p-12">
+            <div className="flex items-center justify-center gap-2 font-medium text-lg text-white mb-4">
               <div onClick={() => setStep(1)} className="cursor-pointer">
                 <svg
                   width="27"
@@ -50,21 +60,35 @@ export function Access({ onClick, addNetwork }: any) {
               </div>
               Login
             </div>
-            <form action="" className="w-full mt-4 flex flex-col gap-4">
-              <Button
-                onClick={addNetwork}
-                className="bg-[#4C24D0] w-full mt-8 rounded-lg flex items-center justify-between px-4 text-white font-lato font-medium "
-              >
-                Conectar a wallet
-                <img src={"/metamask.png"} alt="metamask" className="w-6" />
-              </Button>
+            <div className="w-full mt-4 flex flex-col gap-4">
               <Button
                 onClick={() => setStep(1)}
-                className="bg-transparent w-full border border-[rgba(255,255,255,.3)] text-white font-lato font-medium rounded-lg"
+                className="bg-transparent w-full flex items-center px-4 border-2 border-[rgba(255,255,255,.3)] mt-8 text-white font-lato font-medium rounded-lg"
+              >
+                Login com Email
+              </Button>
+
+              <Link to={"/register"}>
+                <Button className="bg-transparent w-full flex items-center px-4 border-2 border-[rgba(255,255,255,.3)] text-white font-lato font-medium rounded-lg">
+                  Registrar
+                </Button>
+              </Link>
+
+              <Button
+                onClick={addNetwork}
+                className="hover:bg-[#4C24D0] bg-[#4C24D0]  w-full rounded-lg flex items-center justify-between px-4 text-white font-lato font-medium "
+              >
+                Login com Metamask
+                <img src={"/metamask.png"} alt="metamask" className="w-6" />
+              </Button>
+
+              <Button
+                onClick={() => setStep(1)}
+                className="bg-transparent w-full border-2 border-[rgba(255,255,255,.3)] text-white font-lato font-medium rounded-lg"
               >
                 Voltar
               </Button>
-            </form>
+            </div>
           </div>
         )}
       </div>

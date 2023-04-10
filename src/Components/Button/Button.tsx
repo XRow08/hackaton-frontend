@@ -21,7 +21,7 @@ export function Button({
       onClick={onClick}
       type={type}
       className={classNames(
-        "font-lato hover:bg-[#4C24D0] hover:scale-[1.03] transition-all ease-in-out duration-300 no-underline h-12",
+        "font-lato bg-[#1B1A26] hover:bg-[#2C2B39] active:bg-[#4C24D0] hover:ring-2 hover:ring-[rgba(255,255,255,.3)] rounded-lg transition-all ease-in-out duration-300 no-underline h-14",
         className
       )}
     >

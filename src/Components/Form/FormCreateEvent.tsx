@@ -93,8 +93,7 @@ export function FormCreateEvent({
           <Textarea
             {...field}
             placeholder="Fale sobre seu evento"
-            cols={30}
-            rows={10}
+            rows={5}
           />
         )}
       />
