@@ -21,7 +21,8 @@ export function TicketPerfil({ onClick }: any) {
               onClick={onClick}
               className="w-[12rem] h-[12rem] flex flex-col items-center "
             >
-              <div className="bg-brand-primary rounded-lg p-6 pt-3 overflow-hidden border border-[rgba(255,255,255,.3)] hover:border-[#217025] transition-all duration-300 ease-in-out cursor-pointer">
+              <div className="bg-brand-primary rounded-lg p-6 pr-3 pt-2 flex flex-row-reverse overflow-hidden border border-[rgba(255,255,255,.3)] hover:border-[#217025] transition-all duration-300 ease-in-out cursor-pointer">
+                <Title className="text-white text-lg">35</Title>
                 <img
                   src={"/ticketAmarelo.png"}
                   alt={"ticket"}

@@ -8,7 +8,7 @@ export function EventCard(events: any) {
     return (
       <Link
         id={index}
-        to={`/my-event/${nameUrl}?a=${data.adressEvent}`} /*  */
+        to={`/event/${nameUrl}?a=${data.adressEvent}`} /*  */
         className={classNames(
           "w-1/5 h-[35vh] flex flex-col gap-2 rounded-lg cursor-pointer p-4 bg-brand-primary drop-shadow-[0_10px_10px_rgba(0,0,0,0.5)] transition-all duration-300 ease-in-out border-2 hover:border-brand-text border-[rgba(255,255,255,.3)]"
         )}

@@ -6,18 +6,18 @@ import toast, { Toaster } from "react-hot-toast";
 import { useState } from "react";
 import { StorageHelper } from "../../helpers";
 
-export function Register() {
+export function RegisterUser() {
   const [modal, setModal] = useState(false);
   const { handleSubmit, control } = useForm();
 
   async function OnSubmit(values: any) {
+    console.log(values);
     try {
-      const signup = await AuthService.signUpEnterprise(values);
-      if (signup) {
-        setModal(true);
-      }
+      await AuthService.signUp(values);
+      setModal(true);
     } catch (error) {
       toast.error("Error!");
+      console.log(error);
     }
   }
 
@@ -61,7 +61,7 @@ export function Register() {
                 </g>
               </svg>
             </Link>
-            Registre sua empresa
+            Registre-se
           </div>
           <FormSignUp
             onSubmit={handleSubmit(OnSubmit)}

@@ -15,35 +15,71 @@ import {
   CreateButton,
   Loading,
   TicketCard,
+  Button,
 } from "../../Components";
 import { useEffect, useState } from "react";
-import { verUriDoContrato, verUltimoId, verUriDoToken } from "../../services";
+import {
+  verUriDoContrato,
+  verUltimoId,
+  verUriDoToken,
+  balanceOf1155,
+  abrirParaVenda,
+  abrirSaqueDeRecompensas,
+  verControleDeRecompensa,
+  verControleDeVenda,
+} from "../../services";
+import { StorageHelper } from "../../helpers";
+import toast, { Toaster } from "react-hot-toast";
 
 export function MyEvent() {
   const [active, setActive] = useState("atividades");
-  const [modal, setModal] = useState(false);
   const [infoEvent, setInfoEvent] = useState<any | null>(null);
+  const [venda, setVenda] = useState(false);
+  const [recompensa, setRecompensa] = useState(false);
   const [tickets, setTickets] = useState<any | null>(null);
+  const [balances, setBalance] = useState<any | null>(null);
   const location = useLocation();
+  const adress = StorageHelper.getItem("adress");
   const { a }: any = queryString.parse(location.search);
   const firstFour = a.substring(0, 4);
   const lastFour = a.slice(-4);
   const result = `${firstFour}...${lastFour}`;
 
+  async function AbrirVenda() {
+    await abrirParaVenda(a);
+    setVenda(true);
+    toast.success("Vendas abertas!");
+  }
+
+  async function AbrirRecompensa() {
+    await abrirSaqueDeRecompensas(a);
+    setRecompensa(true);
+    toast.success("Recompensas abertas!");
+  }
+
   useEffect(() => {
     async function VerId() {
+      abrirSaqueDeRecompensas(a);
+
+      setRecompensa(await verControleDeRecompensa(a));
+      setVenda(await verControleDeVenda(a));
+
       const uri = await verUriDoContrato(a);
       const res = await fetch(uri);
       const data = await res.json();
       setInfoEvent(data);
       const ids = await verUltimoId(a);
       const uris: any = [];
+      const balance: any = [];
       for (let i = 1; i <= Number(ids); i++) {
         const uriToken = await verUriDoToken(a, i);
         const res = await fetch(uriToken);
         const data = await res.json();
         uris.push(data);
+        const balances = await balanceOf1155(adress, i, a);
+        balance.push(balances);
       }
+      setBalance(balance);
       setTickets(uris);
     }
     VerId();
@@ -51,6 +87,7 @@ export function MyEvent() {
 
   return (
     <>
+      <Toaster />
       <Header />
       {infoEvent ? (
         <>
@@ -70,7 +107,7 @@ export function MyEvent() {
                 </div>
               </div>
 
-              <div className="flex flex-col w-1/4 justify-center items-end gap-8">
+              <div className="flex flex-col w-1/4 justify-center items-end gap-4">
                 <div className="flex items-center gap-2">
                   <CgOptions size={20} color="white" />
                   <Title className="text-[rgba(255,255,255,.7)]">Opções</Title>
@@ -90,6 +127,20 @@ export function MyEvent() {
                     <Colar />
                   </span>
                 </div>
+                <Button
+                  onClick={AbrirVenda}
+                  className={`${venda ? "" : "bg-[#4C24D0]"} w-full text-white`}
+                >
+                  Abrir vendas
+                </Button>
+                <Button
+                  onClick={AbrirRecompensa}
+                  className={`${
+                    recompensa ? "" : "bg-[#4C24D0]"
+                  } w-full text-white`}
+                >
+                  Abrir recompensa
+                </Button>
               </div>
             </div>
 
@@ -123,7 +174,7 @@ export function MyEvent() {
 
                 {tickets ? (
                   <div className="w-full h-full flex items-center pl-8 gap-4">
-                    {TicketCard(tickets)}
+                    {TicketCard(tickets, balances)}
                   </div>
                 ) : (
                   <div className="flex flex-col items-center justify-center h-full w-full">

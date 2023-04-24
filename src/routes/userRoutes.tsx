@@ -1,15 +1,11 @@
 import { createBrowserRouter } from "react-router-dom";
 import {
-  CreateEvent,
-  CreateTicket,
-  EventSoon,
   Home,
-  MyEvent,
   NotFoundPage,
-  Register,
   Event,
-  Perfil,
-  EventActive,
+  PerfilUsuario,
+  Login,
+  RegisterUser,
 } from "../pages";
 
 export const UserRoutes = createBrowserRouter([
@@ -20,42 +16,22 @@ export const UserRoutes = createBrowserRouter([
   },
   {
     path: "/register",
-    element: <Register />,
+    element: <RegisterUser />,
     errorElement: <NotFoundPage />,
   },
   {
-    path: "/create-event",
-    element: <CreateEvent />,
+    path: "/login",
+    element: <Login />,
+    errorElement: <NotFoundPage />,
+  },
+  {
+    path: "/perfil",
+    element: <PerfilUsuario />,
     errorElement: <NotFoundPage />,
   },
   {
     path: "/event",
     element: <Event />,
-    errorElement: <NotFoundPage />,
-  },
-  {
-    path: "/event-active",
-    element: <EventActive />,
-    errorElement: <NotFoundPage />,
-  },
-  {
-    path: "/perfil",
-    element: <Perfil />,
-    errorElement: <NotFoundPage />,
-  },
-  {
-    path: "/event-soon",
-    element: <EventSoon />,
-    errorElement: <NotFoundPage />,
-  },
-  {
-    path: "/my-event/:name",
-    element: <MyEvent />,
-    errorElement: <NotFoundPage />,
-  },
-  {
-    path: "/create-ticket",
-    element: <CreateTicket />,
     errorElement: <NotFoundPage />,
   },
 ]);

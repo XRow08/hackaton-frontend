@@ -1,23 +1,30 @@
 import { Link } from "react-router-dom";
-import { Header, Footer, FormSignUp, PerfilCreated } from "../../Components";
+import {
+  Header,
+  Footer,
+  FormSignUp,
+  PerfilCreated,
+  FormLogin,
+} from "../../Components";
 import { useForm } from "react-hook-form";
 import { AuthService, addNetwork } from "../../services";
 import toast, { Toaster } from "react-hot-toast";
 import { useState } from "react";
 import { StorageHelper } from "../../helpers";
 
-export function Register() {
+export function Login() {
   const [modal, setModal] = useState(false);
   const { handleSubmit, control } = useForm();
 
   async function OnSubmit(values: any) {
     try {
-      const signup = await AuthService.signUpEnterprise(values);
-      if (signup) {
-        setModal(true);
-      }
+      const { data } = await AuthService.login(values.email, values.password);
+      console.log(data);
+      StorageHelper.setItem("user", data.user);
+      StorageHelper.setItem("token", data.token);
+      setModal(true);
     } catch (error) {
-      toast.error("Error!");
+      toast.error("Credenciais Erradas");
     }
   }
 
@@ -31,19 +38,13 @@ export function Register() {
 
   return (
     <>
-      {modal && (
-        <PerfilCreated
-          title1={"Registro feito com Sucesso!"}
-          link={"/login"}
-          linkTitle={"Fazer login"}
-        />
-      )}
+      {modal && <PerfilCreated title1={"Login feito com Sucesso!"} />}
       <Header />
       <Toaster />
-      <section className="h-full bg-brand-primary flex flex-col justify-start items-center py-8">
-        <div className="w-[40%] flex flex-col justify-center items-start">
+      <section className="h-screen bg-brand-primary flex flex-col justify-center items-center py-8">
+        <div className="w-[40%] flex flex-col justify-start items-start">
           <div className="flex items-center justify-center gap-2 font-medium text-2xl text-white mb-4">
-            <Link to={"/perfil"} className="mt-1">
+            <Link to={"/"} className="mt-1">
               <svg
                 width="27"
                 height="26"
@@ -61,9 +62,10 @@ export function Register() {
                 </g>
               </svg>
             </Link>
-            Registre sua empresa
+            Login
           </div>
-          <FormSignUp
+
+          <FormLogin
             onSubmit={handleSubmit(OnSubmit)}
             control={control}
             addNetwork={() => OnConnect()}

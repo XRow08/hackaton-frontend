@@ -6,13 +6,25 @@ import { Dropdown } from "../Dropdown";
 import { Search } from "../Search";
 import { Title } from "../Title";
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { StorageHelper } from "../../helpers/StorageHelper";
-import { ConnectWallet } from "../Modal";
+import { Link, useNavigate } from "react-router-dom";
+import { ConnectWallet, NaoLogado } from "../Modal";
 import { addNetwork } from "../../services";
+import { StorageHelper } from "../../helpers";
 
 export function Header() {
   const [modal, setModal] = useState(false);
+  const [modal2, setModal2] = useState(false);
+  const navigate = useNavigate();
+
+  async function Navigate() {
+    try {
+      const user = StorageHelper.getItem("user");
+      if (user) navigate("/perfil");
+      if (!user) throw new Error("Sem usuário");
+    } catch (error) {
+      setModal2(true)
+    }
+  }
 
   async function OnSubmit() {
     try {
@@ -25,6 +37,7 @@ export function Header() {
 
   return (
     <>
+      {modal2 && <NaoLogado onClick={() => setModal2(false)} />}
       {modal && (
         <ConnectWallet
           onClick={() => setModal(false)}
@@ -42,9 +55,8 @@ export function Header() {
           <Dropdown />
           <ConnectButton setWallet={() => setModal(true)} />
           <CgShoppingCart size={24} color="white" className="cursor-pointer" />
-          <Link to={"/perfil"}>
-            <Avatar />
-          </Link>
+
+          <Avatar onClick={Navigate} />
         </div>
       </div>
     </>

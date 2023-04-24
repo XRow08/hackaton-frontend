@@ -1,6 +1,8 @@
-export function Avatar() {
+export function Avatar({ onClick }: any) {
   return (
     <svg
+      className="cursor-pointer hover:ring rounded-full"
+      onClick={onClick}
       width="32"
       height="32"
       viewBox="0 0 32 32"

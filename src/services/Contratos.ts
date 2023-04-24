@@ -4,9 +4,9 @@ import { StorageHelper } from "../helpers";
 let userAddress;
 
 //contratos
-let usdtContract = "0xdd8042E472FbB218AE68C04cf8418309CD41C740";
-let marketplaceContract = "0x89599F0e18f7003AF81C8b4F5b9B86929EBc5164";
-let factoryContract = "0x3C97C9f44987930d940d29325A6333D1a2bFD9fA";
+let usdtContract = "0x56DD5f4B94a50E91c6B023aDde59c8fa53aa80f8";
+let marketplaceContract = "0x375e4871bE13739E92378EAf7c8e1B897510d795";
+let factoryContract = "0xA41e23Ea176AD68E113a624582D995b562eEf647";
 
 //funçoes
 
@@ -102,6 +102,9 @@ const customWindow = window as CustomWindow;
 //marketplcae
 const buyTicketFunction =
   "function buyTicket(address collection_, uint id_, uint amount_)external";
+
+const verInventarioDeTicketsFunction =
+  "function viewInventory(address user) public view returns(tuple(address,uint256)[])";
 
 /* export async function login() {
   let accounts = await ethereum.requires({ method: "eth_requestAccounts" });
@@ -210,6 +213,20 @@ export async function verInventarioDeEventos(address: any) {
   );
 
   const tx = await contract.viewEventInventory(address);
+  return tx;
+}
+
+export async function verInventarioDeTickets(address: any) {
+  const provider = getProvider();
+
+  const contract = new ethers.Contract(
+    marketplaceContract,
+    [verInventarioDeTicketsFunction],
+    provider
+  );
+
+  const tx = await contract.viewInventory(address);
+  console.log(tx)
   return tx;
 }
 

@@ -5,9 +5,12 @@ import { CgOptions } from "react-icons/cg";
 
 //FUNÇÕES
 import {
+  resgatarRecompensaUsuario,
   balanceOfUsd,
   verInventarioDeEventos,
   verUriDoContrato,
+  verInventarioDeTickets,
+  balanceOf1155,
 } from "../../services/Contratos";
 
 //HELPERS
@@ -21,55 +24,67 @@ import {
   InstagramIcon,
   TiktokIcon,
   TwitterIcon,
-  TicketPerfil,
   Footer,
   Search,
   GetRewardTicket,
-  CreateButton,
 } from "../../Components";
 import { EventCard } from "../../Components/Card/EventCard";
 import { Loading } from "../../Components/Loading";
 
-export function Perfil() {
+export function PerfilUsuario() {
   const [active, setActive] = useState("atividades");
+  const [nfts, setNfts] = useState<any>(null);
   const [modal, setModal] = useState(false);
   const [usd, setUsd] = useState(0);
   const [events, setEvents] = useState<any | null>(null);
   const adress = StorageHelper.getItem("adress");
   const user = StorageHelper.getItem("user");
-  const firstFour = adress.substring(0, 4);
-  const lastFour = adress.slice(-4);
+  const firstFour = adress?.substring(0, 4);
+  const lastFour = adress?.slice(-4);
   const result = `${firstFour}...${lastFour}`;
+  const id = "1";
+  const contract = "0xAc49F252a291629329Da00426661C6293d4B323c";
+
+  async function GetReward() {
+    const tx = await resgatarRecompensaUsuario(id, contract);
+    await tx.wait(1);
+
+    balanceOfUsd(adress)
+      .then((response) => console.log(Number(response)))
+      .catch((err) => console.log(err));
+  }
 
   useEffect(() => {
     balanceOfUsd(adress)
       .then((response) => setUsd(Number(response)))
       .catch((err) => console.log(err));
 
-    verInventarioDeEventos(adress).then(async (events) => {
-      const array: any[] = [];
-      for (const event of events) {
-        const uri = await verUriDoContrato(event);
-        array.push(uri);
+    /* async function Contratos() {
+      try {
+        const tickets = await verInventarioDeTickets(adress);
+        console.log("tickets", tickets);
+        for (let i = 0; i < tickets.length; i++) {
+          const balance = await balanceOf1155(adress, tickets[i][1], tickets[i][0]);
+          console.log(balance);
+        }
+      } catch (error) {
+        console.error(error);
       }
-
-      const promises = array.map((uri) => fetch(uri).then((res) => res.json()));
-      Promise.all(promises)
-        .then((results) => {
-          const eventsWithUri = results.map((event, index) => {
-            return {
-              ...event,
-              adressEvent: events[index],
-            };
-          });
-          setEvents(eventsWithUri);
-        })
-        .catch((error) => console.error(error));
-    });
-  }, []);
+    }
+    Contratos(); */
+  }, [adress]);
 
   return (
     <section className="h-full">
+      {modal && (
+        <GetRewardTicket
+          adress={adress}
+          onClick={() => setModal(false)}
+          getReward={GetReward}
+          contract={contract}
+          id={id}
+        />
+      )}
       <Header />
       <div className="bg-banner bg-no-repeat bg-cover w-full h-[25vh] p-20" />
       <div className="h-44 w-44 rounded-full border-4 absolute left-32 top-48 bg-logoxr bg-no-repeat bg-cover" />
@@ -126,18 +141,6 @@ export function Perfil() {
                 }
               )}
             >
-              Atividades
-            </div>
-            <div
-              onClick={() => setActive("tickets")}
-              className={classNames(
-                "w-1/4 h-12 font-lato flex justify-center items-center text-[rgba(255,255,255,.5)] transition-all duration-300 ease-in-out hover:text-white cursor-pointer",
-                {
-                  "bg-[#1B1A26] text-[#fff] rounded-t-2xl border-b border-[#7050D9]":
-                    active === "tickets",
-                }
-              )}
-            >
               Tickets
             </div>
           </div>
@@ -149,22 +152,16 @@ export function Perfil() {
 
         {active === "atividades" && (
           <div className="flex items-center justify-between h-[40vh]">
-            <CreateButton link="/create-event" label="Criar Evento" />
-
             {events ? (
               <div className="w-full h-full flex items-center pl-8 gap-4">
                 {EventCard(events)}
               </div>
             ) : (
               <div className="flex flex-col items-center justify-center w-full">
-                <Loading size="big" label="Carregando eventos..." />
+                <Loading size="big" label="Carregando tickets..." />
               </div>
             )}
           </div>
-        )}
-
-        {active === "tickets" && (
-          <TicketPerfil onClick={() => setModal(true)} />
         )}
       </section>
       <Footer />

@@ -7,7 +7,7 @@ export function FormSignUp({ onSubmit, control, addNetwork }: any) {
   return (
     <>
       <form
-        className="w-full flex flex-col gap-2 bg-brand-primary"
+        className="w-full flex flex-col gap-2"
         onSubmit={onSubmit}
       >
         <div className="flex items-center gap-2">
@@ -84,10 +84,9 @@ export function FormSignUp({ onSubmit, control, addNetwork }: any) {
       </form>
       <Button
         onClick={addNetwork}
-        className="hover:bg-[#4C24D0] bg-[#4C24D0]  w-full rounded-lg flex items-center justify-between px-4 mt-2 text-white font-lato font-medium "
+        className="hover:bg-[#4C24D0] bg-[#4C24D0] w-full rounded-lg flex items-center justify-center px-4 mt-2 text-white font-lato font-medium "
       >
         Víncule uma wallet com sua conta
-        <img src={"/metamask.png"} alt="metamask" className="w-6" />
       </Button>
       <Button className="bg-transparent w-full border-2 mt-2 border-[rgba(255,255,255,.3)] text-white font-lato font-medium rounded-lg">
         Voltar

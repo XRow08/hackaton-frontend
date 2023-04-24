@@ -1,16 +1,18 @@
 //IMPORTS REACT / NEXT
 
-//IMPORTS COMPONENTS
 import { CgDanger } from "react-icons/cg";
-import { Container } from "../../Components/Container";
-import { Footer } from "../../Components/Footer";
-import { Header } from "../../Components/Header";
-import { Clock } from "../../Components/Icon/Clock";
-import { Colar } from "../../Components/Icon/Colar";
-import { Map } from "../../Components/Icon/Map";
-import { Tickets } from "../../Components/Tickets";
-import { Title } from "../../Components/Title";
+import {
+  Header,
+  Container,
+  Title,
+  Clock,
+  Colar,
+  Tickets,
+  Footer,
+  Map
+} from "../../Components";
 
+//IMPORTS COMPONENTS
 export function Event() {
   return (
     <section className="h-full bg-brand-primary">
